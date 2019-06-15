@@ -17,12 +17,12 @@ class App extends React.Component {
   showModal = e => {
     e.preventDefault()
     this.setState({ modalIsShowing: true })
-    console.log("modal should show");
+    // console.log("modal should show");
   }
   hideModal = e => {
     e.preventDefault()
     this.setState({ modalIsShowing: false })
-    console.log("modal should close");
+    // console.log("modal should close");
   }
   newFriend = e => {
     e.preventDefault()
@@ -33,11 +33,13 @@ class App extends React.Component {
       id: new Date()
     }
     if(newFriendData.name !== '' && newFriendData.age !== 0 && newFriendData.email !== '') {
+      console.log([...this.state.friends, newFriendData]);
       axios
         .post(`http://localhost:5000/friends`, newFriendData)
-        .then(res => {this.setState(() => ({ friends: res.data }))})
+        .then(res => console.log(res.data))
         .catch(err => console.log(err))
       this.setState({
+        friends: [...this.state.friends, newFriendData],
         name: '',
         age: 0,
         email: '',

@@ -17,6 +17,14 @@ export default class FriendsList extends React.Component {
         console.log(err);
       })
   }
+  deleteFriend = (e, id) => {
+    e.preventDefault()
+    // id = this.state.friends.id
+    axios
+      .delete(`http://localhost:5000/friends/${id}`)
+      .then(res => console.log('friend deleted: ', id))
+      .catch(err => console.log(err))
+  }
 
   render() {
     return (
@@ -27,6 +35,7 @@ export default class FriendsList extends React.Component {
               <h3 className="friendName">Name: {friend.name}</h3>
               <h4 className="friendAge">Age: {friend.age}</h4>
               <h4 className="friendEmail">Email: {friend.email}</h4>
+              <button onClick={e => this.deleteFriend(e, friend.id)}>Delete Friend</button>
             </div>
           )
         })}
